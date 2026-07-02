@@ -905,36 +905,42 @@ body.has-cursor-light .cursor-light { opacity: 1; }
 
 /* ---------- formulário de proposta ---------- */
 .contact-form {
-  width: min(560px, 100%);
+  width: min(620px, 100%);
   margin-inline: auto;
-  display: grid; gap: 12px;
+  display: grid; gap: 14px;
   text-align: left;
+  padding: clamp(24px, 4vw, 40px);
+  border-radius: var(--radius-surface);
+  border: 1px solid var(--border-strong);
+  background: #0d0d11;
+  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.8);
 }
 .contact-form-title {
-  font-size: 0.95rem; color: var(--text-2); font-weight: 500;
+  font-size: 1.1rem; color: var(--text); font-weight: 700;
   text-align: center;
-  margin-top: clamp(20px, 3vw, 32px);
+  margin-top: clamp(64px, 9vw, 120px);
+  margin-bottom: 18px;
 }
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  padding: 14px 18px;
+  padding: 15px 18px;
   border-radius: 14px;
-  border: 1px solid var(--border-strong);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: #16161b;
   color: var(--text);
-  font-family: var(--font); font-size: 0.95rem;
+  font-family: var(--font); font-size: 1rem;
   transition: border-color 0.25s ease, background 0.25s ease;
 }
 .contact-form input::placeholder,
-.contact-form textarea::placeholder { color: var(--text-3); }
+.contact-form textarea::placeholder { color: #8f8f9a; }
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
-  border-color: rgba(140, 140, 255, 0.6);
-  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(150, 150, 255, 0.75);
+  background: #1a1a21;
 }
-.contact-form textarea { min-height: 120px; resize: vertical; }
+.contact-form textarea { min-height: 140px; resize: vertical; }
 .contact-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 @media (max-width: 560px) { .contact-form .form-row { grid-template-columns: 1fr; } }
 .contact-form button[type="submit"] { justify-self: center; min-width: 220px; }
