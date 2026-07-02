@@ -12,6 +12,7 @@
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=jet-brains-mono@400,500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/unique.css" />
 </head>
 <body>
 
@@ -55,7 +56,12 @@
         <a href="#products">Produtos</a>
         <a href="#philosophy">Filosofia</a>
       </nav>
-      <a class="btn btn-primary btn-sm magnetic" href="mailto:leocodes.dev@gmail.com?subject=Novo%20projeto%20com%20LRT%20Software">Iniciar Projeto</a>
+      <div class="nav-actions">
+        <button class="sound-toggle" id="soundToggle" type="button" aria-pressed="false" aria-label="Ativar sons da interface">
+          <i class="ph ph-speaker-simple-slash" aria-hidden="true"></i>
+        </button>
+        <a class="btn btn-primary btn-sm magnetic" href="mailto:leocodes.dev@gmail.com?subject=Novo%20projeto%20com%20LRT%20Software">Iniciar Projeto</a>
+      </div>
     </div>
   </header>
 
@@ -352,6 +358,15 @@
     <canvas class="hero-canvas" id="finaleCanvas" aria-hidden="true"></canvas>
     <div class="finale-glow" aria-hidden="true"></div>
     <span class="finale-watermark" aria-hidden="true">LRT</span>
+    <svg class="finale-signature" viewBox="0 0 72 72" fill="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="lgSig" x1="16" y1="20" x2="44" y2="56"><stop stop-color="#6f8dff"/><stop offset="1" stop-color="#9b7dff"/></linearGradient>
+      </defs>
+      <path data-draw d="M16 20 V48 Q16 56 24 56 H44" stroke="url(#lgSig)" stroke-width="5" stroke-linecap="round"/>
+      <path data-draw d="M34 16 H48 Q56 16 56 24 V38" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+      <path class="mark-spark" d="M56 40 l1.8 3.4 3.4 1.8 -3.4 1.8 -1.8 3.4 -1.8 -3.4 -3.4 -1.8 3.4 -1.8 Z" fill="#9b7dff"/>
+      <text class="mark-r" x="33" y="45" text-anchor="middle" font-family="Satoshi, sans-serif" font-weight="900" font-size="28" fill="#fff">R</text>
+    </svg>
     <div class="wrap finale-inner">
       <h2 data-reveal>Pronto para construir seu<br /><span class="hero-accent">próximo produto digital?</span></h2>
       <a class="btn btn-primary btn-xl magnetic" data-reveal href="mailto:leocodes.dev@gmail.com?subject=Novo%20projeto%20com%20LRT%20Software">Iniciar Projeto</a>
@@ -398,5 +413,6 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/unique.js"></script>
 </body>
 </html>
