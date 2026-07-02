@@ -694,57 +694,6 @@ export function initMotion(): () => void {
     });
   }
 
-  /* ---------- sound design opcional ---------- */
-  (function sound() {
-    const btn = document.getElementById("soundToggle");
-    if (!btn) return;
-    let actx: AudioContext | null = null;
-    let on = localStorage.getItem("lrt-sound") === "1";
-    const icon = btn.querySelector("i")!;
-
-    function paint() {
-      icon.className = on ? "ph ph-speaker-simple-high" : "ph ph-speaker-simple-slash";
-      btn!.setAttribute("aria-pressed", String(on));
-      btn!.setAttribute("aria-label", on ? "Desativar sons da interface" : "Ativar sons da interface");
-    }
-    paint();
-
-    function beep(freq: number, dur: number, gain: number, type: OscillatorType = "sine") {
-      if (!on) return;
-      try {
-        actx = actx || new AudioContext();
-        if (actx.state === "suspended") actx.resume();
-        const o = actx.createOscillator();
-        const g = actx.createGain();
-        o.type = type;
-        o.frequency.value = freq;
-        g.gain.setValueAtTime(gain, actx.currentTime);
-        g.gain.exponentialRampToValueAtTime(0.0001, actx.currentTime + dur);
-        o.connect(g).connect(actx.destination);
-        o.start();
-        o.stop(actx.currentTime + dur);
-      } catch { /* áudio bloqueado: silêncio */ }
-    }
-
-    btn.addEventListener("click", () => {
-      on = !on;
-      localStorage.setItem("lrt-sound", on ? "1" : "0");
-      paint();
-      if (on) beep(880, 0.12, 0.05);
-    }, { signal });
-
-    let last: Element | null = null;
-    document.addEventListener("pointerover", (e) => {
-      const t = (e.target as Element).closest("a,button");
-      if (!t || t === last) { if (!t) last = null; return; }
-      last = t;
-      beep(2200, 0.04, 0.012);
-    }, { signal });
-    document.addEventListener("click", (e) => {
-      if ((e.target as Element).closest("a,button")) beep(520, 0.09, 0.03, "triangle");
-    }, { signal });
-  })();
-
   /* ---------- konami → matrix rain ---------- */
   (function konami() {
     const seq = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
