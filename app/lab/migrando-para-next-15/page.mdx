@@ -1,0 +1,62 @@
+export const metadata = {
+  title: "Migrando a landing pra Next.js 15 sem perder uma animação · LRT Lab",
+  description:
+    "Como portamos um sistema de motion GSAP + Lenis inteiro pra React Server Components.",
+};
+
+<a className="lab-back" href="/lab">← voltar pro Lab</a>
+
+<article className="lab-article">
+
+# Migrando a landing pra Next.js 15 sem perder uma animação
+
+<time dateTime="2026-07-02">2 de julho de 2026</time>
+
+Nossa landing nasceu estática: um `index.html`, um `style.css` e ~900 linhas de
+JavaScript coreografando GSAP, ScrollTrigger e Lenis. Funcionava bem — mas
+deixava na mesa tudo que só um framework com servidor oferece.
+
+## Por que migrar
+
+- **SEO de verdade.** HTML completo no primeiro byte, Metadata API, `sitemap.xml` e `robots.txt` gerados no build.
+- **OG images por código.** Cada compartilhamento gera um card desenhado na hora com `next/og` — inclusive por produto, com métricas reais.
+- **A/B testing na edge.** O middleware divide visitantes entre duas versões do hero por cookie, com rewrite invisível. As duas variantes continuam 100% estáticas.
+- **Server Actions e rotas de API** prontas pro que vier: formulários, webhooks, integrações.
+
+## O desafio: motion imperativo em mundo declarativo
+
+O sistema de animação inteiro manipula DOM diretamente: cria cursores, injeta
+canvases, divide títulos em letras. Reescrever isso como componentes React
+seria um mês de trabalho e um campo minado de regressões.
+
+A solução foi outra: **portar, não reescrever.**
+
+```tsx
+// components/Effects.tsx
+"use client";
+import { useEffect } from "react";
+import { initMotion } from "@/lib/motion";
+
+export default function Effects() {
+  useEffect(() => initMotion(), []);
+  return null;
+}
+```
+
+Todo o código imperativo vive em `lib/motion.ts` e roda uma vez no mount.
+O retorno do `initMotion()` é a função de cleanup: `AbortController` derruba
+todos os listeners, `gsap.context().revert()` desfaz cada tween e
+ScrollTrigger, e os nós criados são removidos. O StrictMode do React monta
+tudo duas vezes em dev — com cleanup correto, nem percebemos.
+
+## Resultado
+
+- 7 rotas estáticas, first load de 159kB
+- Todas as animações intactas: preloader, sticky stack, cursor físico, skew por velocidade de scroll
+- Deploy na Vercel sem uma linha de configuração
+
+A lição: migração de framework não precisa ser reescrita. O código imperativo
+bem isolado atravessou a fronteira intacto — e o site ganhou superpoderes de
+servidor sem perder um frame.
+
+</article>

@@ -21,6 +21,8 @@ export default function Footer() {
         <div className="footer-col">
           <h4>Contato</h4>
           <a href="mailto:leocodes.dev@gmail.com">leocodes.dev@gmail.com</a>
+          <a href="/lab">Lab · notas de engenharia</a>
+          <a href="/pitch">Modo apresentação</a>
         </div>
       </div>
       <div className="wrap footer-bottom">

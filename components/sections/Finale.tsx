@@ -1,3 +1,5 @@
+import ContactForm from "../ContactForm";
+
 export default function Finale() {
   return (
     <section className="finale" id="contact">
@@ -27,6 +29,9 @@ export default function Finale() {
         >
           Iniciar Projeto
         </a>
+        <div data-reveal style={{ width: "100%" }}>
+          <ContactForm />
+        </div>
       </div>
     </section>
   );

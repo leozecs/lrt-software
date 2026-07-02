@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import ZetaPlayground from "../ZetaPlayground";
 
 function ExtIcon() {
   return (
@@ -60,6 +61,10 @@ export default function Products() {
               <ul className="panel-tags" role="list">
                 <li>Busca local</li><li>Mapas</li><li>Avaliações</li><li>SEO</li>
               </ul>
+              <ul className="panel-stats" role="list">
+                <li><b data-count="15">+15</b><span>clientes ativos</span></li>
+                <li><b data-count="500">+500</b><span>acessos recorrentes</span></li>
+              </ul>
               <a className="panel-link magnetic" href="https://indicapramim.com" target="_blank" rel="noopener">
                 Visitar indicapramim.com
                 <ExtIcon />
@@ -98,6 +103,9 @@ export default function Products() {
               <ul className="panel-tags" role="list">
                 <li>Painel</li><li>Receita</li><li>Fluxo de caixa</li><li>Pagamentos</li><li>Análises</li>
               </ul>
+              <ul className="panel-stats" role="list">
+                <li><b data-count="10">+10</b><span>lojas gerenciando o financeiro</span></li>
+              </ul>
               <a className="panel-link magnetic" href="https://caixalocal.vercel.app" target="_blank" rel="noopener">
                 Visitar caixalocal.vercel.app
                 <ExtIcon />
@@ -129,6 +137,9 @@ export default function Products() {
                   Plataforma SaaS completa para pet shops e clínicas veterinárias, do primeiro
                   agendamento ao prontuário.
                 </p>
+                <ul className="panel-stats" role="list">
+                  <li><b data-count="12">+12</b><span>petshops utilizando no dia a dia</span></li>
+                </ul>
                 <a className="panel-link magnetic" href="https://petsistem.com.br" target="_blank" rel="noopener">
                   Visitar petsistem.com.br
                   <ExtIcon />
@@ -165,15 +176,16 @@ export default function Products() {
                 Plataforma com Inteligência Artificial capaz de criar sites, CRMs e softwares
                 instantaneamente. O ponto em que nosso ecossistema começou a construir a si mesmo.
               </p>
+              <ul className="panel-stats" role="list" style={{ justifyContent: "center" }}>
+                <li className="stat-dev"><b>em desenvolvimento</b></li>
+              </ul>
               <a className="panel-link magnetic" href="https://appzeta.vercel.app" target="_blank" rel="noopener">
                 Visitar appzeta.vercel.app
                 <ExtIcon />
               </a>
             </div>
             <div className="zeta-stage">
-              <div className="zeta-code glass" aria-hidden="true">
-                <pre id="zetaStream"><code></code></pre>
-              </div>
+              <ZetaPlayground />
               <div className="panel-media zeta-shot" data-tilt>
                 <Device
                   domain="appzeta.vercel.app"

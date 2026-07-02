@@ -64,7 +64,7 @@ export default function OpengraphImage() {
           </span>
         </div>
         <div style={{ marginTop: 44, fontSize: 28, color: "#a0a0a8" }}>
-          Engenharia moderna · Inteligência Artificial · 4 produtos no ar
+          +15 clientes ativos · +10 lojas · +12 petshops · Zeta em desenvolvimento
         </div>
       </div>
     ),

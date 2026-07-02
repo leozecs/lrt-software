@@ -245,52 +245,15 @@ export function initMotion(): () => void {
     window.addEventListener("resize", resize, { signal });
   })();
 
-  /* ---------- zeta: streaming code ---------- */
-  (function stream() {
-    const target = document.querySelector("#zetaStream code");
-    if (!target) return;
-    const lines = [
-      "zeta build --from prompt",
-      "› analisando requisitos…",
-      "› gerando schema: clientes, faturas, pipelines",
-      "create table clientes ( id uuid primary key … )",
-      "› montando telas do CRM",
-      "export function Dashboard({ metricas }) {",
-      "  return <GraficoReceita data={metricas} />;",
-      "}",
-      "› conectando auth + pagamentos",
-      "› publicando na edge…",
-      "✓ no ar em 42s · zeta.app/seu-crm",
-    ];
-    if (reduceMotion) { target.textContent = lines.join("\n"); return; }
-
-    let li = 0, ci = 0, buf: string[] = [], running = false;
-    let timer: ReturnType<typeof setTimeout>;
-
-    function step() {
-      if (!running) return;
-      const line = lines[li];
-      ci++;
-      if (ci > line.length) {
-        buf.push(line); ci = 0; li = (li + 1) % lines.length;
-        if (buf.length > 9) buf.shift();
-        if (li === 0) buf = [];
-        timer = setTimeout(step, 420);
-      } else {
-        target!.textContent = buf.join("\n") + (buf.length ? "\n" : "") + line.slice(0, ci);
-        timer = setTimeout(step, 18 + Math.random() * 40);
-      }
-      timers.push(timer);
-    }
-
-    const io = new IntersectionObserver(([e]) => {
-      running = e.isIntersecting;
-      clearTimeout(timer);
-      if (running) step();
-    });
-    io.observe(target);
-    observers.push(io);
-  })();
+  /* ---------- A/B: registra cliques no CTA principal ---------- */
+  document.addEventListener("click", (e) => {
+    const cta = (e.target as Element).closest(".btn-primary");
+    if (!cta) return;
+    const v = document.cookie.match(/lrt-ab=(a|b)/)?.[1] || "a";
+    try {
+      navigator.sendBeacon?.("/api/ab", JSON.stringify({ v, event: "cta_click", t: Date.now() }));
+    } catch { /* beacon opcional */ }
+  }, { signal });
 
   /* ---------- daqui pra baixo: coreografia GSAP ---------- */
   let lenis: Lenis | null = null;
@@ -486,6 +449,17 @@ export function initMotion(): () => void {
           scrollTrigger: { trigger: manifesto, start: "top 80%", end: "bottom 48%", scrub: 0.4 },
         });
     }
+
+    /* stats dos produtos: números contam ao entrar na tela */
+    document.querySelectorAll<HTMLElement>(".panel-stats b[data-count]").forEach((el) => {
+      const target = parseInt(el.dataset.count!, 10);
+      const obj = { n: 0 };
+      gsap.to(obj, {
+        n: target, duration: 1.6, ease: "power2.out", snap: { n: 1 },
+        onUpdate: () => { el.textContent = "+" + obj.n; },
+        scrollTrigger: { trigger: el, start: "top 85%", once: true },
+      });
+    });
 
     /* princípios acendem no centro da tela */
     document.querySelectorAll(".principle").forEach((row, i) => {
